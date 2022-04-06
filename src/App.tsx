@@ -1,26 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import {BrowserRouter, Route, Routes,} from 'react-router-dom';
+import {Header} from './components/Header';
+import {SideBar} from './components/SideBar';
+import {Profile} from './components/profile/Profile';
+import {Message} from './components/message/Message';
+import {RootType} from './types/types';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+type AppPropsType = { state: RootType }
+export const App  = (props: AppPropsType) => (
+    <BrowserRouter>
+        <Box className="App" sx={{display: 'flex'}}>
+            <CssBaseline/>
+            <Header/>
+            <SideBar/>
+            <Routes>
+                <Route path={'/*'} element={<Box sx={{margin: '0 auto', padding: '400px'}}>404</Box>} />
+                <Route
+                    path={'/profile'}
+                    element={<Profile
+                        myPostsData={props.state.profilePage.myPostsData}
+                    />}/>
+                <Route
+                    path={'/message/*'}
+                    element={<Message
+                        friendsData={props.state.messagePage.friendsData}
+                        friendMessageData={props.state.messagePage.friendMessageData}
+                    />}/>
+            </Routes>
+        </Box>
 
-export default App;
+
+    </BrowserRouter>
+
+);
+
+
+
