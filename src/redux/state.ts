@@ -5,7 +5,7 @@ import Mitchel from '../media/Mitchel_Givens.jpg';
 import Stephan from '../media/Stephen_Hadley.jpg';
 import {RootType} from '../types/types';
 
-export const state: RootType = {
+export let state: RootType = {
     profilePage: {
         myPostsData: [
             {id: v1(), postMessage: 'Hello my friends!', like: 45},
@@ -53,4 +53,8 @@ export const state: RootType = {
             {id: v1(), friendName: 'Steven Franklin', message: 'Okay?', time: '19:42'},
         ]
     }
+}
+
+export const addPost = (newPost: string) => {
+    state.profilePage.myPostsData = ([...state.profilePage.myPostsData, {id: v1(), postMessage: newPost, like: 0}])
 }

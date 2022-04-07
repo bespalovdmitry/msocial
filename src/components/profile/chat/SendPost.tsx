@@ -5,14 +5,25 @@ import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import AddLocationAltOutlinedIcon from "@mui/icons-material/AddLocationAltOutlined";
 import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
-import React from "react";
+import React, {ChangeEvent, useState} from 'react';
 
-export const SendPost = () => {
+type SendPostPropsType = {
+    addPost: (newPost: string) => void
+}
+export const SendPost = (props: SendPostPropsType) => {
+    const [newPost, setNewPost] = useState('')
+
+    const onChangePost = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setNewPost(e.currentTarget.value)
+    }
+    const onClickSendPostHandler = () => {
+        props.addPost(newPost)
+    }
     return (
         <Paper sx={{mb: 1, p: 1}}>
             <Box display={'flex'} alignItems={'flex-end'}>
-                <TextField label={'Add post...'} variant={'standard'} fullWidth/>
-                <Button variant={'contained'} sx={{ml: 1, alignItems: 'flex-end'}}>Post</Button>
+                <TextField onChange={onChangePost} label={'Add post...'} variant={'standard'} fullWidth/>
+                <Button onClick={onClickSendPostHandler} variant={'contained'} sx={{ml: 1, alignItems: 'flex-end'}}>Post</Button>
             </Box>
             <ButtonGroup sx={{mt: 1}}>
                 <Tooltip title='File' placement="top"><IconButton sx={{color: '#FD5D5D'}}><AttachmentIcon/></IconButton></Tooltip>

@@ -8,6 +8,7 @@ import {MyPostType} from '../../types/types';
 
 type ProfilePropsType = {
     myPostsData: Array<MyPostType>
+    addPost: (newPost: string) => void
 }
 
 export const Profile = (props: ProfilePropsType) => {
@@ -16,7 +17,10 @@ export const Profile = (props: ProfilePropsType) => {
             <Toolbar/>
             <Grid container spacing={2} sx={{backgroundColor: 'none'}}>
                 <MyInfoCard/>
-                <Chat myPostsData={props.myPostsData}/>
+                <Chat
+                    myPostsData={props.myPostsData}
+                    addPost={props.addPost}
+                />
             </Grid>
         </Box>
     );
