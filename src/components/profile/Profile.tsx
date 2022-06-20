@@ -4,11 +4,11 @@ import React from "react";
 import {Grid} from "@mui/material";
 import {MyInfoCard} from "./MyInfoCard";
 import {Chat} from "./chat/Chat";
-import {MyPostType} from '../../types/types';
+import {AddPostActionType, MyPostType} from '../../types/types';
 
 type ProfilePropsType = {
     myPostsData: Array<MyPostType>
-    addPost: (newPost: string) => void
+    dispatch: (action: AddPostActionType) => void
 }
 
 export const Profile = (props: ProfilePropsType) => {
@@ -19,7 +19,7 @@ export const Profile = (props: ProfilePropsType) => {
                 <MyInfoCard/>
                 <Chat
                     myPostsData={props.myPostsData}
-                    addPost={props.addPost}
+                    dispatch={props.dispatch}
                 />
             </Grid>
         </Box>

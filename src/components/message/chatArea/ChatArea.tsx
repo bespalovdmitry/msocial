@@ -4,14 +4,15 @@ import {ChatHeader} from './ChatHeader';
 import {MessageFromFriend} from './MessageFromFriend';
 import {ChatSendMessage} from './ChatSendMessage';
 import React from 'react';
-import {FriendMessageType} from '../../../types/types';
+import {MessageType} from '../../../types/types';
+import {MyMessage} from './MyMessage';
 
 type ChatAreaPropsType = {
-    friendMessageData: Array<FriendMessageType>
+    friendMessageData: Array<MessageType>
+    myMessageData: Array<MessageType>
 }
 export const ChatArea = (props: ChatAreaPropsType) => {
     return (
-
         <Paper sx={{
             height: '100%',
             p: 2,
@@ -19,12 +20,22 @@ export const ChatArea = (props: ChatAreaPropsType) => {
             flexDirection: 'column',
             justifyContent: 'space-between'
         }}>
-            <Box>
-                <ChatHeader/>
-                <Divider sx={{mb: 2}}/>
-                {props.friendMessageData.map((message) => {
-                    return <MessageFromFriend key={message.id} friendName= {message.friendName} message={message.message} time={message.time}/>
-                })}
+            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                <Box>
+                    <ChatHeader/>
+                    <Divider sx={{mb: 2}}/>
+                    {props.friendMessageData.map((message) => {
+                        return <MessageFromFriend key={message.id} friendName={message.friendName}
+                                                  message={message.message} time={message.time}/>
+                    })}
+                </Box>
+                <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                    {props.myMessageData.map((message) => {
+                        return <MyMessage friendName={message.friendName} message={message.message}
+                                          time={message.time}/>
+                    })}
+                </Box>
+
             </Box>
             <Box>
                 <Divider sx={{mb: 2}}/>

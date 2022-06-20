@@ -1,8 +1,15 @@
 import {IconButton, InputBase, Paper} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
-import React from "react";
+import React, {ChangeEvent, useState} from 'react';
 
 export const ChatSendMessage = () => {
+    const [myMessage, setMyMessage] = useState('')
+    const onChangeHandler = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setMyMessage(event.currentTarget.value)
+    }
+    const onClickHandler = () => {
+        console.log('ok')
+    }
     return (
         <Paper component="form" sx={{
             p: '2px 4px',
@@ -15,8 +22,10 @@ export const ChatSendMessage = () => {
             <InputBase
                 sx={{ml: 1, flex: 1, backgroundColor: '#EFF2F6'}}
                 placeholder="Enter message"
+                value={myMessage}
+                onChange = {onChangeHandler}
             />
-            <IconButton sx={{p: '10px'}} color={'primary'}>
+            <IconButton sx={{p: '10px'}} color={'primary'} onClick={onClickHandler}>
                 <SendIcon/>
             </IconButton>
         </Paper>

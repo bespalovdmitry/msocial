@@ -1,12 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
 import './index.css';
 import './redux/state'
-import {App} from './App'
-import {addPost, state} from './redux/state';
+import {store} from './redux/state';
+import ReactDOM from 'react-dom/client';
+import {BrowserRouter} from 'react-router-dom';
+import {App} from './App';
+import React from 'react';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLDivElement)
-root.render(<App
-    state={state}
-    addPost={addPost}
-/>)
+
+export const rerenderEntireTree = () => {
+    const root = ReactDOM.createRoot(document.getElementById('root') as HTMLDivElement)
+    root.render(
+        <BrowserRouter>
+            <App
+                store={store}
+            />
+        </BrowserRouter>
+    )
+}
+
+rerenderEntireTree()
+
+store.subscribe(rerenderEntireTree)

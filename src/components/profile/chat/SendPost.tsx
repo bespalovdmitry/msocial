@@ -6,9 +6,11 @@ import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternate
 import AddLocationAltOutlinedIcon from "@mui/icons-material/AddLocationAltOutlined";
 import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
 import React, {ChangeEvent, useState} from 'react';
+import {AddPostActionType} from '../../../types/types';
+import {addPostAC} from '../../../redux/state';
 
 type SendPostPropsType = {
-    addPost: (newPost: string) => void
+    dispatch: (action: AddPostActionType) => void
 }
 export const SendPost = (props: SendPostPropsType) => {
     const [newPost, setNewPost] = useState('')
@@ -17,12 +19,13 @@ export const SendPost = (props: SendPostPropsType) => {
         setNewPost(e.currentTarget.value)
     }
     const onClickSendPostHandler = () => {
-        props.addPost(newPost)
+        props.dispatch(addPostAC(newPost))
+        setNewPost('')
     }
     return (
         <Paper sx={{mb: 1, p: 1}}>
             <Box display={'flex'} alignItems={'flex-end'}>
-                <TextField onChange={onChangePost} label={'Add post...'} variant={'standard'} fullWidth/>
+                <TextField value={newPost} onChange={onChangePost} label={'Add post...'} variant={'standard'} fullWidth/>
                 <Button onClick={onClickSendPostHandler} variant={'contained'} sx={{ml: 1, alignItems: 'flex-end'}}>Post</Button>
             </Box>
             <ButtonGroup sx={{mt: 1}}>
